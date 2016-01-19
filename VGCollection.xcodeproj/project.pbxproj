@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F1DFC811C4A2F64007372DD /* IGDBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1DFC801C4A2F64007372DD /* IGDBClient.swift */; };
+		9F1DFC831C4A311F007372DD /* IGDBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1DFC821C4A311F007372DD /* IGDBConstants.swift */; };
+		9F3854211C4A38D100CC7A90 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854201C4A38D100CC7A90 /* Game.swift */; };
+		9F3854231C4DC70F00CC7A90 /* IGDBConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854221C4DC70F00CC7A90 /* IGDBConvenience.swift */; };
 		9FE1EC091C487EB700FF3624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1EC081C487EB700FF3624 /* AppDelegate.swift */; };
 		9FE1EC101C487EB700FF3624 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC0E1C487EB700FF3624 /* Main.storyboard */; };
 		9FE1EC121C487EB700FF3624 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC111C487EB700FF3624 /* Assets.xcassets */; };
@@ -34,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F1DFC801C4A2F64007372DD /* IGDBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDBClient.swift; sourceTree = "<group>"; };
+		9F1DFC821C4A311F007372DD /* IGDBConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDBConstants.swift; sourceTree = "<group>"; };
+		9F3854201C4A38D100CC7A90 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		9F3854221C4DC70F00CC7A90 /* IGDBConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDBConvenience.swift; sourceTree = "<group>"; };
 		9FE1EC051C487EB700FF3624 /* VGCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE1EC081C487EB700FF3624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FE1EC0F1C487EB700FF3624 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,6 +82,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F1DFC7E1C4A2F4D007372DD /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				9F1DFC7F1C4A2F56007372DD /* IGDB */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		9F1DFC7F1C4A2F56007372DD /* IGDB */ = {
+			isa = PBXGroup;
+			children = (
+				9F1DFC801C4A2F64007372DD /* IGDBClient.swift */,
+				9F1DFC821C4A311F007372DD /* IGDBConstants.swift */,
+				9F3854221C4DC70F00CC7A90 /* IGDBConvenience.swift */,
+			);
+			name = IGDB;
+			sourceTree = "<group>";
+		};
 		9FE1EBFC1C487EB700FF3624 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +156,8 @@
 		9FE1EC3A1C487FE200FF3624 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9F1DFC7E1C4A2F4D007372DD /* Clients */,
+				9F3854201C4A38D100CC7A90 /* Game.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -281,7 +309,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE1EC391C487FDA00FF3624 /* SearchViewController.swift in Sources */,
+				9F3854231C4DC70F00CC7A90 /* IGDBConvenience.swift in Sources */,
+				9F3854211C4A38D100CC7A90 /* Game.swift in Sources */,
+				9F1DFC831C4A311F007372DD /* IGDBConstants.swift in Sources */,
 				9FE1EC091C487EB700FF3624 /* AppDelegate.swift in Sources */,
+				9F1DFC811C4A2F64007372DD /* IGDBClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

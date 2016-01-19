@@ -15,6 +15,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultsTableView: UITableView!
     let darkGrayColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
+    var games = [Game]()
+    
+    // Reference to most recent data download task
+    var searchTask: NSURLSessionDataTask?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +52,48 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: - UISearchBar Delegate Methods
     
+    // Update search result as user types searchText
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
         
-        // TODO: call API request
+        // Cancel the last task
+        if let task = searchTask {
+            task.cancel()
+            print("Task canceled")
+        }
+        
+        // If textfield is empty, exit method
+        if searchText == "" {
+            games = [Game]()
+            resultsTableView.reloadData()
+            print("Method exited")
+            return
+        }
+        
+        // Start new dataTask
+        let parameters = ["q" : searchText]
+        let request = IGDBClient.sharedInstance().configureURLRequestForResource(IGDBClient.Resources.GamesSearch, parameters: parameters)
+        
+        searchTask = IGDBClient.sharedInstance().dataTaskForResource(request) { (result, error) in
+            
+            if let error = error {
+                print("Error searching for games: \(error.localizedDescription)")
+                return
+            } else {
+                if let gameDictionaries = result.valueForKey(IGDBClient.JSONResponseKeys.Games) as? [[String : AnyObject]] {
+                    self.searchTask = nil
+                    
+                    // Create an array of Game instances to display in resultsTableView
+                    self.games = gameDictionaries.map() {Game(dictionary: $0)}
+                    
+                    // Reload tableView on main thread
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.resultsTableView.reloadData()
+                    }
+                } else {
+                    print("Cannot find key \(IGDBClient.JSONResponseKeys.Games) in \(result)")
+                }
+            }
+        }
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -59,10 +101,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
-        // TODO: Segue to game detail
-        print("TODO: Segue to game detail")
-        
         searchBar.resignFirstResponder()
     }
     
@@ -70,14 +108,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - UITableView Delegate Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return games.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let reuseID = "SearchTableViewCell"
+        let game = games[indexPath.row]
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseID)!
-        cell.textLabel?.text = "test"
+        cell.textLabel!.text = game.name
+        cell.detailTextLabel?.text = game.releaseYear
+        print(game.releaseYear)
         
         return cell
     }
@@ -85,8 +127,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel?.textColor = UIColor.whiteColor()
-
+        cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.detailTextLabel!.textColor = UIColor.whiteColor()
     }
     
     
