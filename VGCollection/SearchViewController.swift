@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     
@@ -20,6 +20,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Reference to most recent data download task
     var searchTask: NSURLSessionDataTask?
+    
+    
+    // MARK: - UI Lifecycle 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +52,15 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Add tap recognizers
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
+        
+        navigationController!.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBarHidden = true
     }
     
     
@@ -70,15 +82,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         
-        // // Start new dataTask  if searchText contains 2 or more characters
+        // // Start new dataTask if searchText contains 2 or more characters
         if searchText.characters.count >= 2 {
             
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             noResultsLabel.hidden = true
             
             let parameters: [String : AnyObject] = [
-                "q" : searchText,
-                
+                "q" : searchText.lowercaseString,
                 "limit" : 50
             ]
             
@@ -204,7 +215,23 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowGameDetail", sender: indexPath)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+    
+    
+    // MARK: - Segue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let gameDetailVC = segue.destinationViewController as! GameDetailViewController
+        gameDetailVC.game = games[(sender as! NSIndexPath).row]
     }
     
     

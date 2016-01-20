@@ -16,9 +16,10 @@
 		9F38542A1C4E1FF300CC7A90 /* TheGamesDBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */; };
 		9F38542C1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */; };
 		9F38542E1C4F8D9300CC7A90 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38542D1C4F8D9300CC7A90 /* UIViewExtensions.swift */; };
+		9F3854301C4F9B1700CC7A90 /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38542F1C4F9B1700CC7A90 /* GameDetailViewController.swift */; };
+		9F3854361C4FB7B100CC7A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F3854351C4FB7B100CC7A90 /* Assets.xcassets */; };
 		9FE1EC091C487EB700FF3624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1EC081C487EB700FF3624 /* AppDelegate.swift */; };
 		9FE1EC101C487EB700FF3624 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC0E1C487EB700FF3624 /* Main.storyboard */; };
-		9FE1EC121C487EB700FF3624 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC111C487EB700FF3624 /* Assets.xcassets */; };
 		9FE1EC151C487EB700FF3624 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC131C487EB700FF3624 /* LaunchScreen.storyboard */; };
 		9FE1EC201C487EB700FF3624 /* VGCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1EC1F1C487EB700FF3624 /* VGCollectionTests.swift */; };
 		9FE1EC2B1C487EB700FF3624 /* VGCollectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1EC2A1C487EB700FF3624 /* VGCollectionUITests.swift */; };
@@ -52,10 +53,11 @@
 		9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGamesDBConstants.swift; sourceTree = "<group>"; };
 		9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		9F38542D1C4F8D9300CC7A90 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		9F38542F1C4F9B1700CC7A90 /* GameDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
+		9F3854351C4FB7B100CC7A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FE1EC051C487EB700FF3624 /* VGCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE1EC081C487EB700FF3624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FE1EC0F1C487EB700FF3624 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9FE1EC111C487EB700FF3624 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FE1EC141C487EB700FF3624 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FE1EC161C487EB700FF3624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FE1EC1B1C487EB700FF3624 /* VGCollectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VGCollectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,9 +151,9 @@
 				9FE1EC3C1C487FED00FF3624 /* Controller */,
 				9FE1EC081C487EB700FF3624 /* AppDelegate.swift */,
 				9FE1EC0E1C487EB700FF3624 /* Main.storyboard */,
-				9FE1EC111C487EB700FF3624 /* Assets.xcassets */,
 				9FE1EC131C487EB700FF3624 /* LaunchScreen.storyboard */,
 				9FE1EC161C487EB700FF3624 /* Info.plist */,
+				9F3854351C4FB7B100CC7A90 /* Assets.xcassets */,
 			);
 			path = VGCollection;
 			sourceTree = "<group>";
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				9FE1EC381C487FDA00FF3624 /* SearchViewController.swift */,
+				9F38542F1C4F9B1700CC7A90 /* GameDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -305,7 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE1EC151C487EB700FF3624 /* LaunchScreen.storyboard in Resources */,
-				9FE1EC121C487EB700FF3624 /* Assets.xcassets in Resources */,
+				9F3854361C4FB7B100CC7A90 /* Assets.xcassets in Resources */,
 				9FE1EC101C487EB700FF3624 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F38542E1C4F8D9300CC7A90 /* UIViewExtensions.swift in Sources */,
+				9F3854301C4F9B1700CC7A90 /* GameDetailViewController.swift in Sources */,
 				9FE1EC391C487FDA00FF3624 /* SearchViewController.swift in Sources */,
 				9F3854231C4DC70F00CC7A90 /* IGDBConvenience.swift in Sources */,
 				9F3854211C4A38D100CC7A90 /* Game.swift in Sources */,

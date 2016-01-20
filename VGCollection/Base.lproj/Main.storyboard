@@ -38,7 +38,7 @@
                     <connections>
                         <segue destination="ksZ-sR-wYC" kind="relationship" relationship="viewControllers" id="0jt-01-xIX"/>
                         <segue destination="r1c-zi-dNI" kind="relationship" relationship="viewControllers" id="AZW-3N-IGW"/>
-                        <segue destination="As2-eN-850" kind="relationship" relationship="viewControllers" id="ije-oK-35F"/>
+                        <segue destination="9K8-jJ-dab" kind="relationship" relationship="viewControllers" id="5BY-V8-87a"/>
                         <segue destination="47f-o1-1t8" kind="relationship" relationship="viewControllers" id="XzN-cX-Lmt"/>
                     </connections>
                 </tabBarController>
@@ -198,15 +198,91 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="4HD-nr-pfM"/>
+                    <navigationItem key="navigationItem" id="iYv-Xj-dyY"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="noResultsLabel" destination="4cJ-x3-okv" id="0an-K3-oHc"/>
                         <outlet property="resultsTableView" destination="ZT4-sA-29w" id="THP-es-fb2"/>
                         <outlet property="searchBar" destination="8cq-jx-QgP" id="8G9-JD-zHf"/>
+                        <segue destination="MrN-WR-NaR" kind="show" identifier="ShowGameDetail" id="l6Q-eM-wps"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iLK-Qj-GEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1554" y="-758"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="Cvu-Y2-RM6">
+            <objects>
+                <navigationController id="9K8-jJ-dab" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="0mb-QJ-5WS"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c9c-Cn-Uio">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="As2-eN-850" kind="relationship" relationship="rootViewController" id="miS-me-VLS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M5D-av-bCb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="802" y="-758"/>
+        </scene>
+        <!--Game Detail View Controller-->
+        <scene sceneID="LPZ-cs-IBX">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="MrN-WR-NaR" customClass="GameDetailViewController" customModule="VGCollection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tu3-zw-a2L"/>
+                        <viewControllerLayoutGuide type="bottom" id="W7a-2V-mlM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="339-cW-qLk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-uD-nDa">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjI-FI-vHi">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bjI-FI-vHi" secondAttribute="trailing" id="RnB-sJ-sm5"/>
+                                    <constraint firstItem="bjI-FI-vHi" firstAttribute="top" secondItem="Omr-uD-nDa" secondAttribute="top" id="YJk-tN-wBR"/>
+                                    <constraint firstAttribute="bottom" secondItem="bjI-FI-vHi" secondAttribute="bottom" id="aVJ-71-x5H"/>
+                                    <constraint firstItem="bjI-FI-vHi" firstAttribute="leading" secondItem="Omr-uD-nDa" secondAttribute="leading" id="yW2-pe-ERe"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4KD-CC-DcZ">
+                                <rect key="frame" x="5" y="30" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="DJ1-aT-WQQ"/>
+                                    <constraint firstAttribute="width" constant="35" id="mBU-4R-Hat"/>
+                                </constraints>
+                                <state key="normal" image="back"/>
+                                <connections>
+                                    <action selector="backButtonTouchUp:" destination="MrN-WR-NaR" eventType="touchUpInside" id="anU-Jp-UGF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="4KD-CC-DcZ" firstAttribute="top" secondItem="tu3-zw-a2L" secondAttribute="bottom" constant="10" id="Fgu-UQ-OD2"/>
+                            <constraint firstItem="4KD-CC-DcZ" firstAttribute="leading" secondItem="339-cW-qLk" secondAttribute="leadingMargin" constant="-15" id="KcZ-Nk-hhx"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backButton" destination="4KD-CC-DcZ" id="bGP-kZ-ggE"/>
+                        <outlet property="gameCoverImageView" destination="bjI-FI-vHi" id="bs9-Gq-oAa"/>
+                        <outlet property="gameDetailScrollView" destination="Omr-uD-nDa" id="vwu-Lz-rMT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xoP-F9-TBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2302" y="-758"/>
         </scene>
         <!--Discover-->
         <scene sceneID="qMP-Lb-MWn">
@@ -241,6 +317,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back" width="100" height="100"/>
         <image name="collection" width="30" height="30"/>
         <image name="discover" width="30" height="30"/>
         <image name="search" width="30" height="30"/>
