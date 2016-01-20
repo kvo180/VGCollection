@@ -11,6 +11,10 @@
 		9F1DFC831C4A311F007372DD /* IGDBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1DFC821C4A311F007372DD /* IGDBConstants.swift */; };
 		9F3854211C4A38D100CC7A90 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854201C4A38D100CC7A90 /* Game.swift */; };
 		9F3854231C4DC70F00CC7A90 /* IGDBConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854221C4DC70F00CC7A90 /* IGDBConvenience.swift */; };
+		9F3854251C4DF9EA00CC7A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854241C4DF9EA00CC7A90 /* ImageCache.swift */; };
+		9F3854281C4E1F8600CC7A90 /* TheGamesDBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854271C4E1F8600CC7A90 /* TheGamesDBClient.swift */; };
+		9F38542A1C4E1FF300CC7A90 /* TheGamesDBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */; };
+		9F38542C1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */; };
 		9FE1EC091C487EB700FF3624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1EC081C487EB700FF3624 /* AppDelegate.swift */; };
 		9FE1EC101C487EB700FF3624 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC0E1C487EB700FF3624 /* Main.storyboard */; };
 		9FE1EC121C487EB700FF3624 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC111C487EB700FF3624 /* Assets.xcassets */; };
@@ -42,6 +46,10 @@
 		9F1DFC821C4A311F007372DD /* IGDBConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDBConstants.swift; sourceTree = "<group>"; };
 		9F3854201C4A38D100CC7A90 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		9F3854221C4DC70F00CC7A90 /* IGDBConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDBConvenience.swift; sourceTree = "<group>"; };
+		9F3854241C4DF9EA00CC7A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		9F3854271C4E1F8600CC7A90 /* TheGamesDBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGamesDBClient.swift; sourceTree = "<group>"; };
+		9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGamesDBConstants.swift; sourceTree = "<group>"; };
+		9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		9FE1EC051C487EB700FF3624 /* VGCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE1EC081C487EB700FF3624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FE1EC0F1C487EB700FF3624 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,6 +93,7 @@
 		9F1DFC7E1C4A2F4D007372DD /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				9F3854261C4E1F7400CC7A90 /* TheGamesDB */,
 				9F1DFC7F1C4A2F56007372DD /* IGDB */,
 			);
 			name = Clients;
@@ -93,11 +102,21 @@
 		9F1DFC7F1C4A2F56007372DD /* IGDB */ = {
 			isa = PBXGroup;
 			children = (
-				9F1DFC801C4A2F64007372DD /* IGDBClient.swift */,
-				9F1DFC821C4A311F007372DD /* IGDBConstants.swift */,
 				9F3854221C4DC70F00CC7A90 /* IGDBConvenience.swift */,
+				9F1DFC821C4A311F007372DD /* IGDBConstants.swift */,
+				9F1DFC801C4A2F64007372DD /* IGDBClient.swift */,
+				9F3854241C4DF9EA00CC7A90 /* ImageCache.swift */,
 			);
 			name = IGDB;
+			sourceTree = "<group>";
+		};
+		9F3854261C4E1F7400CC7A90 /* TheGamesDB */ = {
+			isa = PBXGroup;
+			children = (
+				9F3854271C4E1F8600CC7A90 /* TheGamesDBClient.swift */,
+				9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */,
+			);
+			name = TheGamesDB;
 			sourceTree = "<group>";
 		};
 		9FE1EBFC1C487EB700FF3624 = {
@@ -165,6 +184,7 @@
 		9FE1EC3B1C487FE800FF3624 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -312,7 +332,11 @@
 				9F3854231C4DC70F00CC7A90 /* IGDBConvenience.swift in Sources */,
 				9F3854211C4A38D100CC7A90 /* Game.swift in Sources */,
 				9F1DFC831C4A311F007372DD /* IGDBConstants.swift in Sources */,
+				9F38542C1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift in Sources */,
+				9F3854281C4E1F8600CC7A90 /* TheGamesDBClient.swift in Sources */,
 				9FE1EC091C487EB700FF3624 /* AppDelegate.swift in Sources */,
+				9F38542A1C4E1FF300CC7A90 /* TheGamesDBConstants.swift in Sources */,
+				9F3854251C4DF9EA00CC7A90 /* ImageCache.swift in Sources */,
 				9F1DFC811C4A2F64007372DD /* IGDBClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

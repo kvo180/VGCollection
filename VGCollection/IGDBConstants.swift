@@ -16,6 +16,7 @@ extension IGDBClient {
         
         // MARK: URLs
         static let baseURLSecure: String = "https://www.igdb.com/api/v1/"
+        static let baseImageURLSecure: String = "https://res.cloudinary.com/igdb/image/upload/t_"
     }
     
     // MARK: - Resources
@@ -50,6 +51,19 @@ extension IGDBClient {
         static let PlatformsMeta = "platforms/meta"
         static let PlatformsID = "platforms/:id"
         static let PlatformsGames = "platforms/:id/games"
+    }
+    
+    // MARK: - Images
+    // Note: IGDB contains either single or double DPR (Device Pixel Ratio) - get 2x images to better match with Retina display
+    struct Images {
+        static let CoverSmall = "cover_small_2x"
+        static let ScreenShotMed = "screenshot_med_2x"
+        static let CoverBig = "cover_big_2x"
+        static let LogoMed = "logo_med_2x"
+        static let ScreenShotBig = "screenshot_big_2x"
+        static let ScreenShotHuge = "screenshot_huge_2x"
+        static let Thumb = "thumb_2x"
+        static let Micro = "micro_2x"
     }
     
     // MARK: - JSON Response Keys

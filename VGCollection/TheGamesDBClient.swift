@@ -1,15 +1,15 @@
 //
-//  IGDBClient.swift
+//  TheGamesDBClient.swift
 //  VGCollection
 //
-//  Created by Khoa Vo on 1/15/16.
+//  Created by Khoa Vo on 1/18/16.
 //  Copyright © 2016 AppSynth. All rights reserved.
 //
 
 import UIKit
 
-class IGDBClient: NSObject {
-    
+class TheGamesDBClient: NSObject, NSXMLParserDelegate {
+ 
     // MARK: - Properties
     var session: NSURLSession!
     
@@ -78,33 +78,6 @@ class IGDBClient: NSObject {
     }
     
     
-    // MARK: - Data task for getting images
-    
-    func dataTaskForImageWithSize(size: String, imageID: String, completionHandler: (downloadedImage: UIImage?, error: NSError?) -> Void) {
-        
-        let urlString = Constants.baseImageURLSecure + size + "/" + "\(imageID).jpg"
-        print(urlString)
-        let url = NSURL(string: urlString)
-        let request = NSMutableURLRequest(URL: url!)
-        
-        let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                completionHandler(downloadedImage: nil, error: error)
-            } else {
-                if let image = UIImage(data: data!) {
-                    completionHandler(downloadedImage: image, error: nil)
-                }
-                else {
-                    print("image does not exist at URL")
-                    completionHandler(downloadedImage: nil, error: nil)
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    
     // MARK: - Configure URL Request
     
     func configureURLRequestForResource(resource: String, parameters: [String : AnyObject]) -> NSMutableURLRequest {
@@ -115,8 +88,6 @@ class IGDBClient: NSObject {
         print(urlString)
         let url = NSURL(string: urlString)!
         let request = NSMutableURLRequest(URL: url)
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Token token=\(Constants.APIKey)", forHTTPHeaderField: "Authorization")
         
         return request
     }
@@ -124,53 +95,23 @@ class IGDBClient: NSObject {
     
     // MARK: - Helpers
     
-    class func parseJSONDataWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
-        var parsedResult: AnyObject!
-        do {
-            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-        } catch {
-            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
-            completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
-        }
-        
-        completionHandler(result: parsedResult, error: nil)
-    }
-    
-    class func escapedParameters(parameters: [String : AnyObject]) -> String {
-        
-        var urlVars = [String]()
-        
-        for (key, value) in parameters {
-            
-            /* Make sure that it is a string value */
-            let stringValue = "\(value)"
-            
-            /* Escape it */
-            let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-            
-            /* Append it */
-            urlVars += [key + "=" + "\(escapedValue!)"]
-            
-        }
-        
-        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
-    }
+//    class func parseXMLDataWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
+//        let parser = NSXMLParser(data: data)
+//        parser.delegate = self
+//        var parsedResult: AnyObject!
+//        do {
+//            parsedResult = try NSXMLParser.
+//        }
+//    }
     
     
     // MARK: - Shared Instance
-    class func sharedInstance() -> IGDBClient {
+    class func sharedInstance() -> TheGamesDBClient {
         
         struct Singleton {
-            static var sharedInstance = IGDBClient()
+            static var sharedInstance = TheGamesDBClient()
         }
         
         return Singleton.sharedInstance
-    }
-    
-    
-    // MARK: - Shared Image Cache
-    
-    struct Caches {
-        static let imageCache = ImageCache()
     }
 }

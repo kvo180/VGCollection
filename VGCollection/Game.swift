@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Game {
+class Game: NSObject {
     
     struct Keys {
         static let Name = "name"
@@ -22,8 +22,8 @@ class Game {
     var id: Int!
     var releaseDate: String? = nil
     var releaseYear: String? = nil
-    var coverURLString: String? = nil
-    var coverID: String? = nil
+    var imageID: String? = nil
+    var imagePath: String? = nil
     
     init(dictionary: [String : AnyObject]) {
         name = dictionary[Keys.Name] as! String
@@ -37,12 +37,19 @@ class Game {
             releaseYear = ""
         }
         
-        if let coverURLString = dictionary[Keys.Cover] as? String {
-            self.coverURLString = coverURLString
-        }
-        
         if let coverID = dictionary[Keys.CoverID] as? String {
-            self.coverID = coverID
+            imageID = coverID
+            imagePath = "\(coverID).jpg"
+        }
+    }
+    
+    var image: UIImage? {
+        
+        get {
+            return IGDBClient.Caches.imageCache.imageWithIdentifier(imagePath)
+        }
+        set {
+            IGDBClient.Caches.imageCache.storeImage(newValue, withIdentifier: imagePath!)
         }
     }
 }

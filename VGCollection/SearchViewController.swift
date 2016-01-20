@@ -14,6 +14,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultsTableView: UITableView!
+    @IBOutlet weak var noResultsLabel: UILabel!
     let darkGrayColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
     var games = [Game]()
     
@@ -23,6 +24,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        noResultsLabel.hidden = true
         searchBar.delegate = self
         
         // MARK: Configure search bar
@@ -38,11 +40,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Search bar keyboard color
         searchBar.keyboardAppearance = UIKeyboardAppearance.Dark
         
-        
         // MARK: Configure table view
+        
         resultsTableView.backgroundColor = UIColor.blackColor()
-//        resultsTableView.separatorColor = UIColor.whiteColor()
         resultsTableView.tableFooterView = UIView(frame: CGRectZero)
+        resultsTableView.rowHeight = 75.0
         
         // Add tap recognizers
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -58,42 +60,86 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Cancel the last task
         if let task = searchTask {
             task.cancel()
-            print("Task canceled")
         }
         
         // If textfield is empty, exit method
         if searchText == "" {
             games = [Game]()
             resultsTableView.reloadData()
-            print("Method exited")
+            noResultsLabel.hidden = true
             return
         }
         
-        // Start new dataTask
-        let parameters = ["q" : searchText]
-        let request = IGDBClient.sharedInstance().configureURLRequestForResource(IGDBClient.Resources.GamesSearch, parameters: parameters)
-        
-        searchTask = IGDBClient.sharedInstance().dataTaskForResource(request) { (result, error) in
+        // // Start new dataTask  if searchText contains 2 or more characters
+        if searchText.characters.count >= 2 {
             
-            if let error = error {
-                print("Error searching for games: \(error.localizedDescription)")
-                return
-            } else {
-                if let gameDictionaries = result.valueForKey(IGDBClient.JSONResponseKeys.Games) as? [[String : AnyObject]] {
-                    self.searchTask = nil
-                    
-                    // Create an array of Game instances to display in resultsTableView
-                    self.games = gameDictionaries.map() {Game(dictionary: $0)}
-                    
-                    // Reload tableView on main thread
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.resultsTableView.reloadData()
-                    }
+            let parameters: [String : AnyObject] = [
+                "q" : searchText,
+                
+                "limit" : 50
+            ]
+            
+            let request = IGDBClient.sharedInstance().configureURLRequestForResource(IGDBClient.Resources.GamesSearch, parameters: parameters)
+            
+            searchTask = IGDBClient.sharedInstance().dataTaskForResource(request) { (result, error) in
+                
+                if let error = error {
+                    print("Error searching for games: \(error.localizedDescription)")
+                    return
                 } else {
-                    print("Cannot find key \(IGDBClient.JSONResponseKeys.Games) in \(result)")
+                    if let gameDictionaries = result.valueForKey(IGDBClient.JSONResponseKeys.Games) as? [[String : AnyObject]] {
+                        self.searchTask = nil
+                        
+                        // Create an array of Game instances to display in resultsTableView
+                        self.games = gameDictionaries.map() {Game(dictionary: $0)}
+                        print(self.games.count)
+                        
+                        // Reload tableView on main thread
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.resultsTableView.reloadData()
+                            
+                            if self.games.isEmpty {
+                                self.noResultsLabel.hidden = false
+                            } else {
+                                self.noResultsLabel.hidden = true
+                            }
+                        }
+                    } else {
+                        print("Cannot find key \(IGDBClient.JSONResponseKeys.Games) in \(result)")
+                    }
                 }
             }
+        } else {
+            noResultsLabel.hidden = false
         }
+        
+//        let parameters = ["name" : searchText]
+//        let request = TheGamesDBClient.sharedInstance().configureURLRequestForResource(TheGamesDBClient.Resources.GetGamesList, parameters: parameters)
+//        
+//        searchTask = TheGamesDBClient.sharedInstance().dataTaskForResource(request) { (result, error) in
+//            
+//            if let error = error {
+//                print("Error searching for games: \(error.localizedDescription)")
+//                return
+//            } else {
+//                if let gameDictionaries = result.valueForKey(IGDBClient.JSONResponseKeys.Games) as? [[String : AnyObject]] {
+//                    self.searchTask = nil
+//                    
+//                    print(result)
+//                    
+//                    // Create an array of Game instances to display in resultsTableView
+//                    self.games = gameDictionaries.map() {Game(dictionary: $0)}
+//                    
+//                    // Reload tableView on main thread
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        self.resultsTableView.reloadData()
+//                    }
+//                } else {
+//                    print("Cannot find key \(IGDBClient.JSONResponseKeys.Games) in \(result)")
+//                }
+//            }
+//        }
+
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -116,19 +162,49 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let reuseID = "SearchTableViewCell"
         let game = games[indexPath.row]
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseID)!
-        cell.textLabel!.text = game.name
-        cell.detailTextLabel?.text = game.releaseYear
-        print(game.releaseYear)
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseID) as! SearchResultsTableViewCell
+        cell.coverImageView.image = UIImage(named: "blackbox")
+        cell.coverImageView.alpha = 0
+        
+        cell.nameLabel.text = game.name
+        cell.nameLabel.font = UIFont.boldSystemFontOfSize(17)
+        cell.nameLabel.textColor = UIColor.whiteColor()
+        cell.yearLabel.text = game.releaseYear
+        cell.yearLabel.font = UIFont.systemFontOfSize(13)
+        cell.yearLabel.textColor = UIColor.whiteColor()
+
+        // Get cover photo
+        if let storedCoverImage = game.image {
+            cell.coverImageView.image = storedCoverImage
+            cell.coverImageView.alpha = 1
+        }
+        else {
+            if let imageID = game.imageID {
+                IGDBClient.sharedInstance().dataTaskForImageWithSize(IGDBClient.Images.CoverSmall, imageID: imageID) { (downloadedImage, error) in
+                    
+                    if let image = downloadedImage {
+                        game.image = image
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            
+                            cell.coverImageView.image = game.image
+                            
+                            UIView.animateWithDuration(0.5, animations: {
+                                cell.coverImageView.alpha = 1
+                            })
+                        }
+                    }
+                }
+            } else {
+                cell.coverImageView.image = UIImage(named: "camera")
+                cell.coverImageView.alpha = 1
+            }
+        }
         
         return cell
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel!.textColor = UIColor.whiteColor()
-        cell.detailTextLabel!.textColor = UIColor.whiteColor()
     }
     
     

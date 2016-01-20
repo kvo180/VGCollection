@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // Configure tab bar
-        let darkGrayColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
+        let darkGrayColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 1.0)
         UITabBar.appearance().barTintColor = darkGrayColor
         
         return true
