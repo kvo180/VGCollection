@@ -15,6 +15,7 @@
 		9F3854281C4E1F8600CC7A90 /* TheGamesDBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854271C4E1F8600CC7A90 /* TheGamesDBClient.swift */; };
 		9F38542A1C4E1FF300CC7A90 /* TheGamesDBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */; };
 		9F38542C1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */; };
+		9F38542E1C4F8D9300CC7A90 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38542D1C4F8D9300CC7A90 /* UIViewExtensions.swift */; };
 		9FE1EC091C487EB700FF3624 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1EC081C487EB700FF3624 /* AppDelegate.swift */; };
 		9FE1EC101C487EB700FF3624 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC0E1C487EB700FF3624 /* Main.storyboard */; };
 		9FE1EC121C487EB700FF3624 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FE1EC111C487EB700FF3624 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		9F3854271C4E1F8600CC7A90 /* TheGamesDBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGamesDBClient.swift; sourceTree = "<group>"; };
 		9F3854291C4E1FF300CC7A90 /* TheGamesDBConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGamesDBConstants.swift; sourceTree = "<group>"; };
 		9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
+		9F38542D1C4F8D9300CC7A90 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		9FE1EC051C487EB700FF3624 /* VGCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE1EC081C487EB700FF3624 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FE1EC0F1C487EB700FF3624 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				9F38542B1C4F342A00CC7A90 /* SearchResultsTableViewCell.swift */,
+				9F38542D1C4F8D9300CC7A90 /* UIViewExtensions.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F38542E1C4F8D9300CC7A90 /* UIViewExtensions.swift in Sources */,
 				9FE1EC391C487FDA00FF3624 /* SearchViewController.swift in Sources */,
 				9F3854231C4DC70F00CC7A90 /* IGDBConvenience.swift in Sources */,
 				9F3854211C4A38D100CC7A90 /* Game.swift in Sources */,

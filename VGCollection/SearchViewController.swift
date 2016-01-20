@@ -73,6 +73,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // // Start new dataTask  if searchText contains 2 or more characters
         if searchText.characters.count >= 2 {
             
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            noResultsLabel.hidden = true
+            
             let parameters: [String : AnyObject] = [
                 "q" : searchText,
                 
@@ -96,6 +99,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         
                         // Reload tableView on main thread
                         dispatch_async(dispatch_get_main_queue()) {
+                            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                             self.resultsTableView.reloadData()
                             
                             if self.games.isEmpty {
@@ -186,12 +190,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         game.image = image
                         
                         dispatch_async(dispatch_get_main_queue()) {
-                            
                             cell.coverImageView.image = game.image
-                            
-                            UIView.animateWithDuration(0.5, animations: {
-                                cell.coverImageView.alpha = 1
-                            })
+                            cell.coverImageView.fadeIn()
                         }
                     }
                 }

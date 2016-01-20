@@ -83,7 +83,6 @@ class IGDBClient: NSObject {
     func dataTaskForImageWithSize(size: String, imageID: String, completionHandler: (downloadedImage: UIImage?, error: NSError?) -> Void) {
         
         let urlString = Constants.baseImageURLSecure + size + "/" + "\(imageID).jpg"
-        print(urlString)
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         
