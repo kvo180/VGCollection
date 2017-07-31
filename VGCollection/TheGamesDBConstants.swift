@@ -12,7 +12,7 @@ extension TheGamesDBClient {
     struct Constants {
         
         // MARK: URLs
-        static let baseURLSecure: String = "http://thegamesdb.net/api/"
+        static let baseURLSecure: String = "https://thegamesdb.net/api/"
     }
     
     // MARK: - Resources

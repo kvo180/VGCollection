@@ -23,7 +23,7 @@ class IGDBClient: NSObject {
     
     // MARK: - dataTaskWithRequest
     
-    func dataTaskForResource(_ request: NSMutableURLRequest, completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func dataTaskForResource(_ request: URLRequest, completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 4. Make the request */
         let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
@@ -31,7 +31,7 @@ class IGDBClient: NSObject {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 print("There was an error with your request: \(error!)")
-                completionHandler(result: nil, error: error)
+                completionHandler(nil, error! as NSError)
                 return
             }
             
@@ -43,17 +43,17 @@ class IGDBClient: NSObject {
                     print("Your request returned an invalid response! Status code: \(response.statusCode). Description: \(localizedResponse).")
                     
                     let userInfo = [NSLocalizedDescriptionKey : "\(response.statusCode) - \(localizedResponse)"]
-                    completionHandler(result: nil, error: NSError(domain: "statusCode", code: 2, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "statusCode", code: 2, userInfo: userInfo))
                     
                 } else if let response = response {
                     print("Your request returned an invalid response! Response: \(response)!")
                     let userInfo = [NSLocalizedDescriptionKey : "The request returned an invalid response code"]
-                    completionHandler(result: nil, error: NSError(domain: "statusCode", code: 2, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "statusCode", code: 2, userInfo: userInfo))
                     
                 } else {
                     print("Your request returned an invalid response!")
                     let userInfo = [NSLocalizedDescriptionKey : "The request returned an invalid response code"]
-                    completionHandler(result: nil, error: NSError(domain: "statusCode", code: 2, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "statusCode", code: 2, userInfo: userInfo))
                 }
                 return
             }
@@ -63,7 +63,7 @@ class IGDBClient: NSObject {
             guard let data = data else {
                 print("No data was returned by the request!")
                 let userInfo = [NSLocalizedDescriptionKey : "Unable to retrieve data from server"]
-                completionHandler(result: nil, error: NSError(domain: "data", code: 3, userInfo: userInfo))
+                completionHandler(nil, NSError(domain: "data", code: 3, userInfo: userInfo))
                 return
             }
             
@@ -84,19 +84,19 @@ class IGDBClient: NSObject {
         
         let urlString = Constants.baseImageURLSecure + size + "/" + "\(imageID).jpg"
         let url = URL(string: urlString)
-        let request = NSMutableURLRequest(url: url!)
+        let request = URLRequest(url: url!)
         
         let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
             if let error = error {
                 print(error.localizedDescription)
-                completionHandler(downloadedImage: nil, error: error)
+                completionHandler(nil, error as NSError)
             } else {
                 if let image = UIImage(data: data!) {
-                    completionHandler(downloadedImage: image, error: nil)
+                    completionHandler(image, nil)
                 }
                 else {
                     print("image does not exist at URL")
-                    completionHandler(downloadedImage: nil, error: nil)
+                    completionHandler(nil, nil)
                 }
             }
         }) 
@@ -124,7 +124,7 @@ class IGDBClient: NSObject {
     // MARK: - Helpers
     
     class func parseJSONDataWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
-        var parsedResult: AnyObject!
+        var parsedResult: Any!
         do {
             parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         } catch {
@@ -132,7 +132,7 @@ class IGDBClient: NSObject {
             completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        completionHandler(parsedResult, nil)
+        completionHandler(parsedResult as AnyObject, nil)
     }
     
     class func escapedParameters(_ parameters: [String : AnyObject]) -> String {

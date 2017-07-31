@@ -23,7 +23,7 @@ class TheGamesDBClient: NSObject, XMLParserDelegate {
     
     // MARK: - dataTaskWithRequest
     
-    func dataTaskForResource(_ request: NSMutableURLRequest, completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func dataTaskForResource(_ request: URLRequest, completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 4. Make the request */
         let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
@@ -31,7 +31,7 @@ class TheGamesDBClient: NSObject, XMLParserDelegate {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 print("There was an error with your request: \(error!)")
-                completionHandler(result: nil, error: error)
+                completionHandler(nil, error as NSError?)
                 return
             }
             
@@ -43,17 +43,17 @@ class TheGamesDBClient: NSObject, XMLParserDelegate {
                     print("Your request returned an invalid response! Status code: \(response.statusCode). Description: \(localizedResponse).")
                     
                     let userInfo = [NSLocalizedDescriptionKey : "\(response.statusCode) - \(localizedResponse)"]
-                    completionHandler(result: nil, error: NSError(domain: "statusCode", code: 2, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "statusCode", code: 2, userInfo: userInfo))
                     
                 } else if let response = response {
                     print("Your request returned an invalid response! Response: \(response)!")
                     let userInfo = [NSLocalizedDescriptionKey : "The request returned an invalid response code"]
-                    completionHandler(result: nil, error: NSError(domain: "statusCode", code: 2, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "statusCode", code: 2, userInfo: userInfo))
                     
                 } else {
                     print("Your request returned an invalid response!")
                     let userInfo = [NSLocalizedDescriptionKey : "The request returned an invalid response code"]
-                    completionHandler(result: nil, error: NSError(domain: "statusCode", code: 2, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "statusCode", code: 2, userInfo: userInfo))
                 }
                 return
             }
@@ -63,7 +63,7 @@ class TheGamesDBClient: NSObject, XMLParserDelegate {
             guard let data = data else {
                 print("No data was returned by the request!")
                 let userInfo = [NSLocalizedDescriptionKey : "Unable to retrieve data from server"]
-                completionHandler(result: nil, error: NSError(domain: "data", code: 3, userInfo: userInfo))
+                completionHandler(nil, NSError(domain: "data", code: 3, userInfo: userInfo))
                 return
             }
             

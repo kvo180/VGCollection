@@ -116,7 +116,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let request = IGDBClient.sharedInstance().configureURLRequestForResource(IGDBClient.Resources.GamesSearch, parameters: parameters)
             
-            searchTask = IGDBClient.sharedInstance().dataTaskForResource(request) { (result, error) in
+            searchTask = IGDBClient.sharedInstance().dataTaskForResource(request as URLRequest) { (result, error) in
                 
                 if let error = error {
                     print("Error searching for games: \(error.localizedDescription)")
@@ -141,7 +141,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             }
                         }
                     } else {
-                        print("Cannot find key \(IGDBClient.JSONResponseKeys.Games) in \(result)")
+                        print("Cannot find key \(IGDBClient.JSONResponseKeys.Games) in \(String(describing: result))")
                     }
                 }
             }
