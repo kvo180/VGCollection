@@ -31,7 +31,7 @@ class Game: NSObject {
         
         if let releaseDate = dictionary[Keys.ReleaseDate] as? String {
             self.releaseDate = releaseDate
-            releaseYear = (releaseDate as NSString).substringToIndex(4)
+            releaseYear = (releaseDate as NSString).substring(to: 4)
         } else {
             releaseDate = ""
             releaseYear = ""

@@ -13,7 +13,7 @@ import UIKit
 extension IGDBClient {
     
     // MARK: - Search Games
-    func searchGames(searchText: String) {
+    func searchGames(_ searchText: String) {
         
         
     }
